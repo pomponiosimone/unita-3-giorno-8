@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const MovieDetails = ({ movieId }) => {
   const [movie, setMovie] = useState(null);
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -17,7 +18,21 @@ const MovieDetails = ({ movieId }) => {
       }
     };
 
+    const fetchComments = async () => {
+      try {
+        const response = await fetch(`https://yourapi.com/movies/${movieId}/comments`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setComments(data);
+      } catch (error) {
+        console.error('Error fetching comments:', error);
+      }
+    };
+
     fetchMovie();
+    fetchComments();
   }, [movieId]);
 
   if (!movie) {
@@ -29,7 +44,12 @@ const MovieDetails = ({ movieId }) => {
       <h2>{movie.Title}</h2>
       <p>Year: {movie.Year}</p>
       <p>Plot: {movie.Plot}</p>
-      {}
+      <h3>Comments:</h3>
+      <ul>
+        {comments.map((comment, index) => (
+          <li key={index}>{comment.text}</li>
+        ))}
+      </ul>
     </div>
   );
 };

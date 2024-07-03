@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+
 const Gallery = ({ title, movieIds }) => {
   const [movies, setMovies] = useState([]);
 
@@ -28,9 +29,15 @@ const Gallery = ({ title, movieIds }) => {
         {movies.map((movie) => (
           <Col key={movie.imdbID} className="p-2">
             <Card>
-            <Link to={`/movie-details/${movieIds}`}> </Link>
-              <Card.Img variant="top" src={movie.Poster} className="img-fluid"
-                style={{ maxHeight: '240px'}}/>
+              <Link to={`/movie-details/${movie.imdbID}`} className="card-link">
+                <Card.Img
+                  variant="top"
+                  src={movie.Poster}
+                  className="img-fluid"
+                  style={{ maxHeight: '240px' }}
+                  alt={`${movie.Title} Poster`}
+                />
+              </Link>
               <Card.Body>
                 <Card.Title>{movie.Title}</Card.Title>
                 <Card.Text>Released: {movie.Year}</Card.Text>
@@ -45,3 +52,4 @@ const Gallery = ({ title, movieIds }) => {
 };
 
 export default Gallery;
+
