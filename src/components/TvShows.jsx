@@ -8,7 +8,7 @@ function TvShows() {
     const fetchTvShows = async () => {
       try {
       
-        const tvShowIds = ['tt0944947', 'tt0773262', 'tt0903747','tt0903464','tt0903766','tt0903774',]; 
+        const tvShowIds = ['tt0944947', 'tt0773262', 'tt0903747','tt0417741',]; 
         const promises = tvShowIds.map(id =>
           fetch(`https://www.omdbapi.com/?apikey=8c689d92&i=${id}`)
             .then(response => response.json())
@@ -31,7 +31,7 @@ function TvShows() {
         {tvShows.map(show => (
           <Col key={show.imdbID}>
             <Card>
-              <Card.Img variant="top" src={show.Poster} alt={show.Title} />
+              <Card.Img variant="top" src={show.Poster} alt={show.Title}  style={{ maxHeight: '240px' }}/>
               <Card.Body>
                 <Card.Title>{show.Title}</Card.Title>
                 <Card.Text>Year: {show.Year}</Card.Text>
